@@ -6,20 +6,187 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js" charset="utf-8"></script>
     <script src="scripts.js" charset="utf-8"></script>
     <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
     <nav>
       <img id="logo" src="img/yahtzee-logo.png" alt="" />
       <a id="rules" href="#">GAME RULES</a>
-
-    </nav>
-    <div id="container">
-      <div id="dice-section">
-      </div>
-      <div id="score-section">
-      </div>
-    </div>
   </head>
   <body>
+  </nav>
+  <div id="container">
+    <div id="dice-section">
+      <h1 id="intro-text">Let's Begin!</h1>
+      <form id="roll-dice-turn" action="index.html" method="post">
+        <input type="submit" id="button-roll" value="Roll">
+      </form>
 
+      <div id="rolling-area">
+
+      </div>
+
+      <div id="roll-keeper">
+        <table id="roll-counter">
+          <tr>
+            <td style="width: 60%;">
+              <h1 style="font-weight: 700;">Rolls Left</h1>
+            </td>
+            <td style="width: 40%;">
+              <h1 id="countdown-rolls" style="font-weight: 400;">3</h1>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div id="score-section">
+      <h3>Upper Section</h3>
+      <table class="score-card" id="top">
+        <tr class="first">
+          <td class="score-name">
+            <p>Aces (Ones)</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Twos</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Threes</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Fours</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Fives</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Sixes</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Total Score</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Top Bonus</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Total Upper</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+      </table>
+      <!--LOWER-->
+      <h3>Lower Section</h3>
+      <table class="score-card" id="top">
+        <tr class="first">
+          <td class="score-name">
+            <p>3 of a kind</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>4 of a kind</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Full House</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Sm. Straight</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Lg. Straight</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Yahtzee</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Chance</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Yahtzee Bonus</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Total Lower</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Total Upper</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+        <tr >
+          <td class="score-name">
+            <p style="font-weight: 700;">Grand Total</p>
+          </td>
+          <td class="score-amount">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <footer>I am not copywriting Yahtzee...because I didn't make up the game...duh!</footer>
   </body>
 </html>

@@ -2,8 +2,16 @@ console.log("...loaded");
 
 var yahtzeeGame = {};
 
+var diceImages = [ "img/dice-one.png","img/dice-two.png","img/dice-three.png", "img/dice-four.png", "img/dice-five.png", "img/dice-six.png"];
+
+
 //***************TOP RULES***************
 //Ones is the sum of the dices with number 1
+yahtzeeGame.ones = function() {
+  if (rolls[i] === 1) {
+    console.log('You have ones!');
+  }
+};
 
 //Twos is the sum of the dices with number 2
 
@@ -36,40 +44,91 @@ var yahtzeeGame = {};
 
 //chance sum of all the dice or any combination
 
+//yahtzee bonus
+
 //get totalLower
 
 //get combinedTotal
 
 //***************FUNCTIONS***************
 
-//player rolls the dice
+//create a counter for number or rolls
+yahtzeeGame.counter = function() {
+  if (this.$countNumber.text()) {
+    this.rollsAvailable();
+  }
+};
 
-//dice generate 5 random values from 1-6
-// yahtzeeGame.randomRoll = function() {
-//   for (var i = 0; i < 5; i++) {
-//     var diceValue = Math.floor((Math.random() * 6) + 1);
-//     console.log(diceValue);
-//   }
-// };
+//everytime the button gets clicked, subtract one number from the rolls until there are no more rolls left.
+yahtzeeGame.rollsAvailable = function() {
 
-var diceImages = ["img/dice-one.png","img/dice-two.png","img/dice-three.png", "img/dice-four.png", "img/dice-five.png", "img/dice-six.png"];
-// var newImage = $('<img>').addClass('dice');
+  $('#intro-text').css("display","none");
+  var count = parseInt(this.$countNumber.text());
+  if(count > 1) {
+    count = count - 1;
+    this.$countNumber.text(count);
+  } else {
+    this.$countNumber.text(0);
+    $('#button-roll').css("display","none");
+  }
+};
 
+
+//player rolls the dice using the button and shows value of that dice
 yahtzeeGame.randomImg = function() {
+
+  $('#rolling-area').empty();
+  var rolls = [];
 
   for (var i = 0; i < 5; i++) {
     var newImage = $('<img>').addClass('dice');
     var randomNumber = Math.floor(Math.random() * diceImages.length);
+    rolls.push(randomNumber + 1);
     newImage.attr('src', '' + diceImages[randomNumber]);
-    newImage.css("height","15%");
-    $('#dice-section').append(newImage);
-    console.log(newImage);
+    newImage.attr('data',(randomNumber+1));
+    $('#rolling-area').append(newImage);
   };
+  console.log(rolls);
 
 };
-//create a computer to play against
+
+//handle the way dice can be selected
+yahtzeeGame.diceSelectorHandler = function() {
+  var scope = this;
+  diceImages.on("click", function(e) {
+    var findDiceValue = $(this).find(rolls)
+    console.log(findDiceValue);
+  });
+};
+
+//handle the form that contains the roll button
+yahtzeeGame.diceRollFormHandler = function() {
+  var scope = this;
+  this.$roll.on("submit", function(e) {
+    var rollDiceInput = $(this).find('input');
+    scope.randomImg();
+    e.preventDefault();
+    scope.counter();
+  });
+};
+
+yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what happens when you start the game
+  //no dice are visible, only the button to roll
+  this.diceSelectorHandler();
+  this.$countNumber = $countNumber;
+  this.$roll = $roll;
+  this.diceRollFormHandler();
+};
 
 //create an event click for how the die get selected
+
+
+
+// //on first roll of each player, a button will show up that allows you to roll
+
+
+//create a computer to play against?
+
 
 //select dice to keep
   //if dice has been clicked, do not generate another roll for die
@@ -77,7 +136,6 @@ yahtzeeGame.randomImg = function() {
 //create a button with an event click that "rolls" the dice
   //on click, css transition to make them move randomely
 
-//create a counter for number or rolls that doesn't exeed 3 rolls, then the computer rolls
 
 //user is able to select the rule which they want to apply their points and points will show in that box
 
@@ -102,7 +160,11 @@ yahtzeeGame.randomImg = function() {
 //     Using Stuff
 
 $(function() {
-  yahtzeeGame.randomImg();
+  var $countNumber = $('#countdown-rolls');
+  var $roll = $('#roll-dice-turn');
+  yahtzeeGame.init($roll, $countNumber);
+  // yahtzeeGame.randomImg();
+  // yahtzeeGame.rollEvent();
   //the only time you want to see id or class is here!! NOT above
 
 });
