@@ -1,0 +1,69 @@
+body {
+  background-color: lightblue;
+  background-image: url("img/background.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position:center;
+  font-family: 'Roboto', sans-serif;
+}
+img {
+  height: 100%;
+  width: auto;
+}
+nav {
+  height: 50px;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#logo {
+  height: 75%;
+  width: auto;
+}
+#rules {
+  text-align: right;
+  text-decoration: none;
+  color: white;
+}
+#rules:hover {
+  color: black;
+}
+#mylightbox {
+  height: 50%;
+  overflow: scroll;
+}
+#container{
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+.dice{
+  position: relative;
+}
+#dice-section {
+  height: 500px;
+  width: 65%;
+  background-color: #7c1111;
+  border: 5px solid #650000;
+  border-radius: 15px;
+  -moz-box-shadow: inset 0 0 50px #000000;
+  -webkit-box-shadow: inset 0 0 50px #000000;
+  box-shadow: inset 0 0 50px #000000;
+  display: inline-block;
+  padding: 15px;
+  margin-right: 25px;
+
+}
+#score-section {
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  width:40%;
+  display: inline-block;
+}
+
+@media (max-width: 800px) {
+  #score-section {
+    display: block;
+  }
+}
