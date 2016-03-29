@@ -77,8 +77,14 @@ nav {
   padding-top: 10%;
 
 }
+#rolling-area {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
 #rolling-area img {
   height: 50px;
+
 }
 #roll-keeper {
   border-top: 1px solid #fff;
@@ -128,9 +134,9 @@ h3 {
   font-weight: 700;
   font-size: 16px;
 }
-.score-amount {
+/*.score-amount {
   width: 30%;
-}
+}*/
 .score-card td + td,
 .score-card th + th { border-left: 1px solid #e0e0e0; }
 .score-card tr + tr { border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; border-bottom}
@@ -141,7 +147,11 @@ h3 {
   background-color: #d9eddc;
   cursor: pointer;
 }
-
+.active {
+  border: 3px solid #1fabdf;
+  border-radius: 7px;
+  padding: 3px;
+}
 footer {
   position:absolute;
   bottom:0;
@@ -150,7 +160,12 @@ footer {
   background:#151515;
   color: #fff;
 }
-
+h1 {
+  color: white;
+}
+.score-name {
+  width: 50%;
+}
 @media (max-width: 650px) {
   #score-section {
     display: block;
@@ -171,5 +186,11 @@ footer {
   }
   #roll-keeper {
     position: inherit;
+  }
+  .dice {
+    margin-right: 7px;
+  }
+  #rolling-area {
+    margin-bottom: 25px;
   }
 }
