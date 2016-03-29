@@ -143,9 +143,16 @@ h3 {
 .first {
   border-top: 1px solid #e0e0e0;
 }
-.score-card tr:hover {
+.score-amount-top:hover,
+.score-amount-bottom:hover {
   background-color: #d9eddc;
   cursor: pointer;
+}
+.bold {
+  font-weight: 700;
+}
+.bold-top-border {
+  border-top: 3px solid #e0e0e0;
 }
 .active {
   border: 3px solid #1fabdf;

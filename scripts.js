@@ -4,56 +4,66 @@ var yahtzeeGame = {};
 
 var diceImages = [ "img/dice-one.png","img/dice-two.png","img/dice-three.png", "img/dice-four.png", "img/dice-five.png", "img/dice-six.png"];
 
-var activeDice = $(".active");
+// var activeDice = $(".active");
 
-var sum = 0;
+yahtzeeGame.checkUpperRules = function( value ) {
+
+  var diceWithValue = $('[data-value=' + value + ']');
+  var active = $('.active');
+  var activeLength = active.length;
+  var checked = false;
+
+  if (diceWithValue.length === activeLength){
+    console.log("you have " + activeLength + " " + value + "'s'" + " checked");
+    checked = true;
+  }
+  return checked;
+
+}
+
+
 //***************TOP RULES***************
+
+//to "add" them together, mulitple the number of active dice by value
+//something * 1
+
 //Ones is the sum of the dices with number 1
 yahtzeeGame.ones = function() {
+  if (this.checkUpperRules(1)) {
 
-  if ($('[data="1"]')) {
-    console.log("You've selected a one!");
-  };
-  $('#ones').html(sum);
+  }
 
 };
 
 //Twos is the sum of the dices with number 2
 yahtzeeGame.twos = function() {
-  if (rolls[i] === 2) {
-    console.log('You have twos!');
-  }
+  if (this.checkUpperRules(2)) {
+    $("#twos").click(function() {
+      sum = active.length * 2
+      $(this).html(sum);
+    });
+  };
 };
 //Threes is the sum of the dices with number 3
 yahtzeeGame.threes = function() {
-  if (rolls[i] === 3) {
-    console.log('You have threes!');
-  }
+
 };
 //Fours is the sum of the dices with number 4
 yahtzeeGame.fours = function() {
-  if (rolls[i] === 4) {
-    console.log('You have fours!');
-  }
+
 };
 //Fives is the sum of the dices with number 5
 yahtzeeGame.fives = function() {
-  if (rolls[i] === 5) {
-    console.log('You have fives!');
-  }
+
 };
 //Sixes is the sum of the dices with number 6
 yahtzeeGame.sixes = function() {
-  if (rolls[i] === 6) {
-    console.log('You have sixes!');
-  }
+
 };
 //get totalTop
 yahtzeeGame.scoreUpper = function() {
-  var sum = 0;
-  $('.score-amount-top').each(function(){
-    sum += parseFloat($(this).text());  //Or this.innerHTML, this.innerText
-});
+
+
 };
 
 //topBonus, if topTotal is 63 or more, a bonus of 35 is added to the upper section
@@ -122,6 +132,7 @@ yahtzeeGame.rollsAvailable = function() {
     this.$countNumber.text(count);
   } else {
     this.$countNumber.text(0);
+    // //on first roll of each player, a button will show up that allows you to roll
     $('#button-roll').css("display","none");
   }
 };
@@ -138,26 +149,55 @@ yahtzeeGame.randomImg = function() {
       var newImage = $('<img>').addClass('dice');
       var randomNumber = Math.floor(Math.random() * diceImages.length);
       rolls.push(randomNumber + 1);
+
       newImage.attr('src', '' + diceImages[randomNumber]);
       newImage.attr('data-selection', false);
-      newImage.attr('data',(randomNumber+1));
+      newImage.attr('data-value',(randomNumber+1));
       $('#rolling-area').append(newImage);
     };
     yahtzeeGame.selection();
+
+//select dice to keep
+  //if dice has been clicked, do not generate another roll for die
   }else {
-    for (var i = 0; i < 5; i++) { //change end condition
+
+    var rollTheDice = $("[data-selection=false]");
+
+    // JUST to generate the random values
+    //change end condition
+    for (var i = 0; i < rollTheDice.length; i++) {
       var randomNumber = Math.floor(Math.random() * diceImages.length);
-      rolls.push(randomNumber + 1);
-      var rollTheDice = $("[data-selection=false]"); //change to point only at dice that are not selected, I'll get the name when I finishing selection function below
-      rollTheDice.each(function() {
-        $(this).attr('src', '' + diceImages[randomNumber]);
-      });
-      rollTheDice.attr('data',(randomNumber+1));
+      rolls.push(randomNumber+1);
     };
+
+    for (var i = 0; i < rollTheDice.length; i++) {
+      $(rollTheDice[i]).attr('src', '' + diceImages[rolls[i]-1]);
+      $(rollTheDice[i]).attr('data-value',(rolls[i]+1));
+    };
+
+
+
+      // // var rollTheDice = $("[data-selection=false]");
+      // // console.log(rollTheDice);
+      //  //change to point only at dice that are not selected, I'll get the name when I finishing selection function below
+      // rollTheDice.each(function( index, dice ) {
+      //   // console.log(dice);
+      //   var rand = randomNumber;
+      //   // console.log($(this).data());
+      //
+      //   console.log(rand);
+      //   $(dice).attr('src', '' + diceImages[rand]);
+      //   $(dice).attr('data-value',(rand+1));
+      // });
+
+
   }
   console.log(rolls);
 };
+
+
 //select dice
+//create an event click for how the die get selected
 yahtzeeGame.selection = function() {//toggle between data-selection true or false, event listener for the dice
 
   $(".dice").on("click", function() {
@@ -165,24 +205,16 @@ yahtzeeGame.selection = function() {//toggle between data-selection true or fals
     $(this).toggleClass("active");
   });
 
-   //toggling between selection
-  // //data seleted attribute, add a class that will put a border on
-
 };
 
-
-
-//handle the way dice can be selected
-yahtzeeGame.diceSelectorHandler = function() {
-};
 
 //handle the form that contains the roll button
 yahtzeeGame.diceRollFormHandler = function() {
   var scope = this;
   this.$roll.on("submit", function(e) {
+    e.preventDefault();
     var rollDiceInput = $(this).find('input');
     scope.randomImg();
-    e.preventDefault();
     scope.counter();
   });
 };
@@ -195,28 +227,12 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
   this.diceRollFormHandler();
 };
 
-//create an event click for how the die get selected
-
-
-
-// //on first roll of each player, a button will show up that allows you to roll
-
-
-//create a computer to play against?
-
-
-//select dice to keep
-  //if dice has been clicked, do not generate another roll for die
 
 //create a button with an event click that "rolls" the dice
   //on click, css transition to make them move randomely
 
 
 //user is able to select the rule which they want to apply their points and points will show in that box
-
-//computer rolls
-
-//computer chooses the best option with the dice it rolls
 
 //If a rule has already been used, it cannot be used again
 
@@ -231,7 +247,6 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 
 
 $(function() {
-
   var $dice  = $(".dice")
   var $countNumber = $('#countdown-rolls');
   var $roll = $('#roll-dice-turn');
