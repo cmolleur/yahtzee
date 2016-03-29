@@ -1,17 +1,21 @@
 console.log("...loaded");
 
-
-
 var yahtzeeGame = {};
 
 var diceImages = [ "img/dice-one.png","img/dice-two.png","img/dice-three.png", "img/dice-four.png", "img/dice-five.png", "img/dice-six.png"];
 
+var activeDice = $(".active");
+
+var sum = 0;
 //***************TOP RULES***************
 //Ones is the sum of the dices with number 1
 yahtzeeGame.ones = function() {
-  if (rolls[i] === 1) {
-    console.log('You have ones!');
-  }
+
+  if ($('[data="1"]')) {
+    console.log("You've selected a one!");
+  };
+  $('#ones').html(sum);
+
 };
 
 //Twos is the sum of the dices with number 2
@@ -144,14 +148,15 @@ yahtzeeGame.randomImg = function() {
     for (var i = 0; i < 5; i++) { //change end condition
       var randomNumber = Math.floor(Math.random() * diceImages.length);
       rolls.push(randomNumber + 1);
-      var rollTheDice = $(".dice").attr("data-selection", false); //change to point only at dice that are not selected, I'll get the name when I finishing selection
-      rollTheDice.attr('src', '' + diceImages[randomNumber]);
+      var rollTheDice = $("[data-selection=false]"); //change to point only at dice that are not selected, I'll get the name when I finishing selection function below
+      rollTheDice.each(function() {
+        $(this).attr('src', '' + diceImages[randomNumber]);
+      });
       rollTheDice.attr('data',(randomNumber+1));
-    }
+    };
   }
   console.log(rolls);
 };
-
 //select dice
 yahtzeeGame.selection = function() {//toggle between data-selection true or false, event listener for the dice
 
@@ -224,8 +229,10 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 // **************************
 //     Using Stuff
 
+
 $(function() {
 
+  var $dice  = $(".dice")
   var $countNumber = $('#countdown-rolls');
   var $roll = $('#roll-dice-turn');
   yahtzeeGame.init($roll, $countNumber);
