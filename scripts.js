@@ -235,10 +235,18 @@ yahtzeeGame.score = function() {
   // yahtzeeGame.randomImg();
 };
 
-yahtzeeGame
-
+//adds the sum of the upper section
 yahtzeeGame.totalTop = function() {
+  score = 0;
+  if ($(".score-amount-top")) {
+    $('.score-amount-top').each(function(){
+      sum += parseFloat($(this).text());
+      $("#total-top").text(sum);
+    });
+  }else {
+    score = 0;
 
+  }
 };
 
 yahtzeeGame.eventHandlerTop = function() {
@@ -253,8 +261,6 @@ yahtzeeGame.eventHandlerTop = function() {
   if ((dieValue === 1 && $(e.target).attr("id") === 'ones') || (dieValue === 2 && $(e.target).attr("id") === 'twos') || (dieValue === 3 && $(e.target).attr("id") === 'threes') || (dieValue === 4 && $(e.target).attr("id") === 'fours') || (dieValue === 5 && $(e.target).attr("id") === 'fives') || (dieValue === 6 && $(e.target).attr("id") === 'sixes')) {
   // if ((condition for ones AND click on ones) OR (condition for twos AND click on twos) OR ... )
 
-
-    console.log("YAAAAS");
     var score = 0;
 
     $(".active").each(function() {
@@ -270,6 +276,8 @@ yahtzeeGame.eventHandlerTop = function() {
     $('#countdown-rolls').text(2);
     $('#button-roll').css("visibility", "visible");
 
+  }else {
+    var score = 0;
   }
 
 //
@@ -316,6 +324,7 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 
 
 $(function() {
+  yahtzeeGame.totalTop();
   yahtzeeGame.eventHandlerTop();
   var $dice  = $(".dice")
   var $countNumber = $('#countdown-rolls');
