@@ -3,19 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>My Game!</title>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js" charset="utf-8"></script>
     <script src="scripts.js" charset="utf-8"></script>
     <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
     <link href='https://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+
+
+  </head>
+  <body>
+
+    <div id="end">
+      <div id="final-score">
+        <h1 class="winner">You won!</h1>
+        <p class="sub-text">
+          You scored 200 points or higher!
+        </p>
+        <form id="restart" action="index.html" method="post">
+          <input type="submit" class="button-roll" value="Play Again">
+        </form>
+      </div>
+      <div id="game-over">
+      </div>
+    </div>
+
     <nav>
       <img id="logo" src="img/yahtzee-logo.png" alt="" />
       <a id="rules" href="http://www.hasbro.com/common/instruct/Yahtzee.pdf" target="_blank">GAME RULES</a>
-  </head>
-  <body>
   </nav>
   <div id="container">
     <div id="dice-section">
-      <h1 id="intro-text">Let's Begin!</h1>
+
+      <h1 id="intro-text">Earn 200pts or more and win!<br>Let's Play</h1>
       <form id="roll-dice-turn" action="index.html" method="post">
         <input type="submit" id="button-roll" value="Roll">
       </form>
@@ -39,49 +57,52 @@
     </div>
 
     <div id="score-section">
-      <h3>Select a rule from below to add points</h3>
+      <h3 style="margin-bottom: 0;">Select a box below to fill with your score</h3>
+      <p style="margin-top: 0; text-align: center; font-size: 12px;">
+        You must fill in a box on each turn; if you can't enter a score, click an empty box and get 0 points.
+      </p>
       <h3>Upper Section</h3>
       <table class="score-card" id="top">
         <tr class="first">
           <td class="score-name">
-            <p>Aces (Ones)</p>
+            <p>Ones <font class="small">(only select the 1 dices )</font></p>
           </td>
-          <td id="ones" class="score-amount-top">
-          </td>
-        </tr>
-        <tr>
-          <td class="score-name">
-            <p>Twos</p>
-          </td>
-          <td id="twos" class="score-amount-top">
+          <td id="ones" class="score-amount-top final">
           </td>
         </tr>
         <tr>
           <td class="score-name">
-            <p>Threes</p>
+            <p>Twos <font class="small">(only select the 2 dices )</font></p>
           </td>
-          <td id="threes" class="score-amount-top">
-          </td>
-        </tr>
-        <tr>
-          <td class="score-name">
-            <p>Fours</p>
-          </td>
-          <td id="fours" class="score-amount-top">
+          <td id="twos" class="score-amount-top final">
           </td>
         </tr>
         <tr>
           <td class="score-name">
-            <p>Fives</p>
+            <p>Threes <font class="small">(only select the 3 dices )</font></p>
           </td>
-          <td id="fives" class="score-amount-top">
+          <td id="threes" class="score-amount-top final">
           </td>
         </tr>
         <tr>
           <td class="score-name">
-            <p>Sixes</p>
+            <p>Fours <font class="small">(only select the 4 dices )</font></p>
           </td>
-          <td id="sixes" class="score-amount-top">
+          <td id="fours" class="score-amount-top final">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Fives <font class="small">(only select the 5 dices )</font></p>
+          </td>
+          <td id="fives" class="score-amount-top final">
+          </td>
+        </tr>
+        <tr>
+          <td class="score-name">
+            <p>Sixes <font class="small">(only select the 6 dices )</font></p>
+          </td>
+          <td id="sixes" class="score-amount-top final">
           </td>
         </tr>
         <tr style="border-top: 3px solid #666;">
@@ -102,7 +123,7 @@
           <td class="score-name">
             <p class="bold">Total Upper</p>
           </td>
-          <td id="total-top" class="score-amount-total">
+          <td id="total-top" class="score-amount-total final">
           </td>
         </tr>
       </table>
@@ -111,50 +132,44 @@
       <table class="score-card" id="top">
         <tr id="lower-1" class="first">
           <td class="score-name">
-            <p>3 of a kind</p>
+            <p>3 of a kind <font class="small">(select all dice, 3 must be the same)</font></p>
           </td>
-          <td class="score-amount-bottom">
-            <p id="3-of-a-kind"></p>
+          <td id="3-of-a-kind" class="score-amount-bottom final">
           </td>
         </tr>
         <tr id="lower-2" >
           <td class="score-name">
-            <p>4 of a kind</p>
+            <p>4 of a kind <font class="small">(select all dice, 4 must be the same)</font></p>
           </td>
-          <td class="score-amount-bottom">
-            <p id="4-of-a-kind"></p>
+          <td  id="4-of-a-kind" class="score-amount-bottom final">
           </td>
         </tr>
         <tr id="lower-3" >
           <td class="score-name">
-            <p>Full House</p>
+            <p>Full House <font class="small">(select all dice)</font></p>
           </td>
-          <td class="score-amount-bottom">
-            <p id="full-house"></p>
+          <td id="full-house" class="score-amount-bottom final">
           </td>
         </tr>
         <tr id="lower-4" >
           <td class="score-name">
-            <p>Sm. Straight</p>
+            <p>Sm. Straight <font class="small">(select 4 consecutive dice)</font></p>
           </td>
-          <td class="score-amount-bottom">
-            <p id="small-straight"></p>
+          <td id="small-straight" class="score-amount-bottom final">
           </td>
         </tr>
         <tr id="lower-5" >
           <td class="score-name">
-            <p>Lg. Straight</p>
+            <p>Lg. Straight <font class="small">(select 5 consecutive dice)</font></p>
           </td>
-          <td class="score-amount-bottom">
-            <p id="large-straight"></p>
+          <td id="large-straight" class="score-amount-bottom final">
           </td>
         </tr>
         <tr id="lower-6" >
           <td class="score-name">
-            <p>Yahtzee</p>
+            <p>Yahtzee <font class="small">(select all dice)</font></p>
           </td>
-          <td class="score-amount-bottom">
-            <p id="yahtzee"></p>
+          <td  id="yahtzee" class="score-amount-bottom final">
           </td>
         </tr>
         <!-- <tr id="lower-7" >
@@ -176,26 +191,27 @@
           <td class="score-name">
             <p class="bold">Total Lower</p>
           </td>
-          <td class="score-amount">
+          <td class="center" id="score-amount-lower">
           </td>
         </tr>
         <tr>
           <td class="score-name">
             <p class="bold">Total Upper</p>
           </td>
-          <td class="score-amount">
+          <td class="score-amount-total center">
           </td>
         </tr>
-        <tr >
+        <!-- <tr >
           <td class="score-name">
             <p class="bold">Grand Total</p>
           </td>
-          <td class="score-amount">
+          <td id="score-amount-grand" class="center">
           </td>
-        </tr>
+        </tr> -->
       </table>
     </div>
   </div>
   <footer></footer>
+
   </body>
 </html>

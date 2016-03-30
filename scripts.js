@@ -1,13 +1,41 @@
-console.log("...loaded");
+console.log("I apologize in advance for the atrocious mess that is my code...");
 
 var yahtzeeGame = {};
 
 var diceImages = [ "img/dice-one.png","img/dice-two.png","img/dice-three.png", "img/dice-four.png", "img/dice-five.png", "img/dice-six.png"];
 
-// var activeDice = $(".active");
+
+
+var finishedScore = $(".final");
+
+//if all divs with a class of final not empty
+yahtzeeGame.gameFinished = function() {
+  if ($(".filled").length == 12) {
+    yahtzeeGame.winOrLose();
+  }
+};
+
+//find the grandTotal of total upper and total lower
+yahtzeeGame.winOrLose = function() {
+  var finalTop = $("#total-top").text();
+  var finalBottom = $("#score-amount-lower").text();
+  var grandTotal = parseInt(finalTop) + parseInt(finalBottom);
+
+  console.log(finalTop, finalBottom, grandTotal)
+  //if they won, show win screen
+    if ( grandTotal >= 200) {
+      $('#end').css("visibility", "visible");
+  //if they lost, show lose screen
+    }else {
+      $('#end').css("visibility", "visible");
+      $(".winner").text("You lost!");
+      $(".sub-text").text("You didn't get 200 points or higher")
+    }
+};
+
+
+
 var sum = 0;
-
-
 
 yahtzeeGame.checkUpperRules = function( value ) {
 
@@ -21,111 +49,7 @@ yahtzeeGame.checkUpperRules = function( value ) {
   }
   return checked;
 
-
-
 }
-
-
-//***************TOP RULES***************
-
-yahtzeeGame.upperSectionRule = function(diceValue) {
-  sum = $('.active').length * diceValue;
-  if (this.checkUpperRules(diceValue)) {
-  }
-//to "add" them together, mulitple the number of active dice by value
-//something * 1
-
-//Ones is the sum of the dices with number 1
-yahtzeeGame.ones = function() {
-
-
-  // sum = $('.active').length * 1;
-  // if (this.checkUpperRules(1)) {
-  //   $("#ones").click(function() {
-  //     $(this).html(sum)
-  //   });
-
-    // console.log(sum);
-  }
-
-};
-
-
-//Twos is the sum of the dices with number 2
-yahtzeeGame.twos = function() {
-
-};
-//Threes is the sum of the dices with number 3
-yahtzeeGame.threes = function() {
-
-};
-//Fours is the sum of the dices with number 4
-yahtzeeGame.fours = function() {
-
-};
-//Fives is the sum of the dices with number 5
-yahtzeeGame.fives = function() {
-
-};
-//Sixes is the sum of the dices with number 6
-yahtzeeGame.sixes = function() {
-
-};
-//get totalTop
-yahtzeeGame.scoreUpper = function() {
-  var sum = 0;
-  $('.score-amount-top').each(function(){
-    sum += parseFloat($(this).text());  //Or this.innerHTML, this.innerText
-});
-};
-
-//topBonus, if topTotal is 63 or more, a bonus of 35 is added to the upper section
-
-//get upperTotal if topBonus has been applied, if not, upperTotal is the same value as totalTop
-
-//***************BOTTOM RULES***************
-//three-of-a-kind sum of three die that have the same value
-// yahtzeeGame.threeOfAKind = function() {
-//   if (data === ) {
-//
-//   }
-// };
-
-//four-of-a-kind sum of four die that have the same value
-
-//full house is  three of one number and two of another...adds 25 points
-
-//small straight if four sequential dice (1234, 2345, 3456)...adds 30 points
-yahtzeeGame.smStraight = function() {
-  if (data === 1234 || data === 2345 || data === 3456) {
-
-  }
-};
-
-//large straight five seqential dice (12345, 23456)...adds 40 points
-yahtzeeGame.lgStraight = function() {
-  if (data === 12345 || data === 23456) {
-
-  }
-};
-
-//yahtzee all dice are the same valueyahtzeeGame.smStraight = function() {
-yahtzeeGame.yahtzee = function() {
-  if (data === 11111 || data === 22222 || data === 33333 || data === 44444 || data === 55555 || data === 66666) {
-
-  }
-};
-
-
-//chance sum of all the dice or any combination
-
-//yahtzee bonus
-
-//get totalLower
-
-//get combinedTotal
-
-//***************FUNCTIONS***************
 
 //create a counter for number or rolls
 yahtzeeGame.counter = function() {
@@ -138,12 +62,13 @@ yahtzeeGame.counter = function() {
 
 yahtzeeGame.rollsAvailable = function() {
 
-  $('#intro-text').css("display","none");
+  $('#intro-text').text("Roll again, or select a score box");
   var count = parseInt(this.$countNumber.text());
   if(count > 1) {
     count = count - 1;
     this.$countNumber.text(count);
   } else {
+  $('#intro-text').text("Select a score box");
     this.$countNumber.text(0);
     // //on first roll of each player, a button will show up that allows you to roll
     $('#button-roll').css("visibility","hidden");
@@ -187,25 +112,8 @@ yahtzeeGame.randomImg = function() {
       $(rollTheDice[i]).attr('src', '' + diceImages[rolls[i]-1]);
       $(rollTheDice[i]).attr('data-value',(rolls[i]));
     };
-
-
-
-      // // var rollTheDice = $("[data-selection=false]");
-      // // console.log(rollTheDice);
-      //  //change to point only at dice that are not selected, I'll get the name when I finishing selection function below
-      // rollTheDice.each(function( index, dice ) {
-      //   // console.log(dice);
-      //   var rand = randomNumber;
-      //   // console.log($(this).data());
-      //
-      //   console.log(rand);
-      //   $(dice).attr('src', '' + diceImages[rand]);
-      //   $(dice).attr('data-value',(rand+1));
-      // });
-
-
   }
-  console.log(rolls);
+  // console.log(rolls);
 };
 
 
@@ -220,70 +128,298 @@ yahtzeeGame.selection = function() {//toggle between data-selection true or fals
 
 };
 
-//clearing the rolling-section when a score is placed
-yahtzeeGame.score = function() {
-  // var score = 0;
-  // $(".active").each(function() {
-  //   score += parseInt($(this).attr("data-value"));
-  // });
-  // console.log($(this));
-  // $(this).text(score)
-  // $(this).off();
-  // $(this).parent().css('background-color','#e0e0e0')
-  //
-  // $('')
-  // yahtzeeGame.randomImg();
-};
 
 //adds the sum of the upper section
 yahtzeeGame.totalTop = function() {
-  score = 0;
+  var scoreTop = 0;
   if ($(".score-amount-top")) {
     $('.score-amount-top').each(function(){
-      sum += parseFloat($(this).text());
-      $("#total-top").text(sum);
+      scoreTop += parseFloat($(this).text()) || 0;
+      $(".score-amount-total").text(scoreTop);
     });
-  }else {
-    score = 0;
-
   }
+  // else {
+  //   scoreTop = 0;
+  // }
 };
 
-yahtzeeGame.eventHandlerTop = function() {
-
-  $(".score-amount-top").click(function(e) {//keep outside
-//conditional starts here
-  var dieValue = parseInt($(".active").attr("data-value"));
-  var ones = $("#ones");
-
-//uppervalue of that text
-
-  if ((dieValue === 1 && $(e.target).attr("id") === 'ones') || (dieValue === 2 && $(e.target).attr("id") === 'twos') || (dieValue === 3 && $(e.target).attr("id") === 'threes') || (dieValue === 4 && $(e.target).attr("id") === 'fours') || (dieValue === 5 && $(e.target).attr("id") === 'fives') || (dieValue === 6 && $(e.target).attr("id") === 'sixes')) {
-  // if ((condition for ones AND click on ones) OR (condition for twos AND click on twos) OR ... )
-
-    var score = 0;
-
-    $(".active").each(function() {
-      score += parseInt($(this).attr("data-value"));
+yahtzeeGame.totalBottom = function() {
+  var scoreBottom = 0;
+  if ($(".score-amount-bottom")) {
+    $('.score-amount-bottom').each(function(){
+      scoreBottom += parseFloat($(this).text()) || 0;
+      $("#score-amount-lower").text(scoreBottom);
     });
-    console.log($(this));
-    $(this).text(score)
-    $(this).off();
-    $(this).parent().css('background-color','#e0e0e0')
-
-    $('#rolling-area').empty();
-    yahtzeeGame.randomImg();
-    $('#countdown-rolls').text(2);
-    $('#button-roll').css("visibility", "visible");
-
-  }else {
-    var score = 0;
   }
+  // else {
+  //   scoreTop = 0;
+  // }
+};
 
-//
+yahtzeeGame.grandTotal = function() {}
 
+
+yahtzeeGame.scoreAddition = function() {
+  $('#rolling-area').empty();
+  yahtzeeGame.randomImg();
+  $('#countdown-rolls').text(2);
+  $('#button-roll').css("visibility", "visible");
+};
+
+
+//checks for 3 of a kind, 4 of a kind, full house, yahtzee
+yahtzeeGame.getDiceMultiples = function(){
+
+  var active = $(".active");
+
+  var multiples = {};
+
+  active.each(function(index, el) {
+    var number = $(el).attr("data-value");
+    if (multiples.hasOwnProperty(number)) {
+      multiples[number] += 1;
+    }else {
+      multiples[number] = 1;
+    }
   });
+  return multiples;
+}
+
+yahtzeeGame.allNumbersSame = function(value, dieArray) {
+  var allSame = true;
+  for (var i = 0; i < dieArray.length; i++) {
+    if (dieArray[i] != value) {
+      allSame = false;
+    }
+  }
+  return allSame;
 };
+
+
+yahtzeeGame.straightChecker = function(dieArray) {
+  var isStraight = true;
+  dieArray.sort();
+  for (var i = 0; i < dieArray.length - 1; i++) {
+    if (dieArray[i] !== (dieArray[i + 1] - 1)) {
+      isStraight = false;
+    }
+  }
+  return isStraight;
+};
+
+
+var activeDice = $(".active");
+
+//handles ALLLLLL the dice rules...sorry this is rediculously long and messy
+yahtzeeGame.eventHandlerClickScore = function() {
+
+  //upper section scoring
+  $(".score-amount-top").click(function(e) {//keep outside
+      //conditional starts here
+      var dieValue = parseInt($(".active").attr("data-value")) || 0;
+      var ones = $("#ones");
+
+      var activeDice = $(".active");
+      var dieValues = [];
+      for (var i = 0; i < activeDice.length; i++) {
+        dieValues.push(parseInt(activeDice.eq(i).attr("data-value")));
+      };
+
+
+      //uppervalue of that text
+      // console.log($(e.target).attr("id") === '3-of-a-kind');
+
+          //************checks for selected ones
+      if ((dieValue === 1 && $(e.target).attr("id") === 'ones' &&
+          yahtzeeGame.allNumbersSame(1, dieValues)) ||
+          //************checks for selected twos
+          (dieValue === 2 && $(e.target).attr("id") === 'twos' && yahtzeeGame.allNumbersSame(2, dieValues)) ||
+          //************checks for selected threes
+          (dieValue === 3 && $(e.target).attr("id") === 'threes' && yahtzeeGame.allNumbersSame(3, dieValues)) ||
+          //************checks for selected fours
+          (dieValue === 4 && $(e.target).attr("id") === 'fours' && yahtzeeGame.allNumbersSame(4, dieValues)) ||
+          //************checks for selected fives
+          (dieValue === 5 && $(e.target).attr("id") === 'fives' && yahtzeeGame.allNumbersSame(5, dieValues)) ||
+          //************checks for selected sixes
+          (dieValue === 6 && $(e.target).attr("id") === 'sixes' && yahtzeeGame.allNumbersSame(6, dieValues)))  {
+      // if ((condition for ones AND click on ones) OR (condition for twos AND click on twos) OR ... )
+
+        var score = 0;
+        $(".active").each(function() {
+          score += parseInt($(this).attr("data-value"));
+        });
+        console.log($(this));
+        $(this).text(score);
+        $(this).off();
+        $(this).parent().css('background-color','#e0e0e0')
+        $(this).addClass("filled");
+
+        yahtzeeGame.scoreAddition();
+        yahtzeeGame.totalTop();
+
+      }else if (dieValue === 0) {
+        var score = 0;
+        $(e.target).text(score);
+        $(e.target).off();
+        $(this).parent().css('background-color','#e0e0e0')
+        yahtzeeGame.randomImg();
+        $('#countdown-rolls').text(2);
+        $('#button-roll').css("visibility", "visible");
+        $(this).addClass("filled");
+      }
+      yahtzeeGame.gameFinished();
+  });
+
+  //lower section scoring
+  $(".score-amount-bottom").click(function(e) {
+
+    var dieValue = parseInt($(".active").attr("data-value")) || 0;
+    var activeDice = $(".active");
+    var dieValues = [];
+    for (var i = 0; i < activeDice.length; i++) {
+      dieValues.push(parseInt(activeDice.eq(i).attr("data-value")));
+    };
+
+
+    if (dieValue === 0) {
+      var score = 0;
+      $(e.target).text(score);
+      $(e.target).off();
+      $(this).parent().css('background-color','#e0e0e0')
+      yahtzeeGame.randomImg();
+      $('#countdown-rolls').text(2);
+      $('#button-roll').css("visibility", "visible");
+      $(this).addClass("filled");
+
+    }
+    //************small straight
+    else if ($(e.target).attr("id") === 'small-straight' && yahtzeeGame.straightChecker(dieValues) && dieValues.length === 4) {
+        $(e.target).text(30);
+        $(this).off();
+        $(this).parent().css('background-color','#e0e0e0')
+        $(this).addClass("filled");
+
+    //************large straight
+    } else if ($(e.target).attr("id") === 'large-straight' && yahtzeeGame.straightChecker(dieValues) && dieValues.length === 5) {
+        $(e.target).text(40);
+        $(this).off();
+        $(this).parent().css('background-color','#e0e0e0')
+        $(this).addClass("filled");
+
+    }
+
+
+    //************three of a kind rule
+    else if ($(e.target).attr("id") === '3-of-a-kind') {
+       var score = 0;
+       var multiples = yahtzeeGame.getDiceMultiples()
+
+       // I want to iterate through my newNumbers object exp: [1,2]
+       var keys = Object.keys(multiples);
+
+       var atLeast3 = keys.filter(function(key) {
+           return multiples[key] >= 3;
+       });
+
+      if (atLeast3.length === 1) {
+
+         $(".active").each(function() {
+           score += parseInt($(this).attr("data-value")) || 0;
+         });
+         console.log($(this));
+         $(this).text(score);
+         $(this).off();
+         $(this).parent().css('background-color','#e0e0e0')
+
+      }
+      $(this).addClass("filled");
+
+      //************four of a kind rule
+    } else if ($(e.target).attr("id") === '4-of-a-kind') {
+        var score = 0; //set the inital score to 0
+        var multiples = yahtzeeGame.getDiceMultiples() //call the multiples function
+
+        // I want to iterate through my newNumbers object exp: [1,2]
+        var keys = Object.keys(multiples);
+        var atLeast4 = keys.filter(function(key) {
+          return multiples[key] >= 4;
+        });
+        console.log(atLeast4);
+
+        if (atLeast4.length === 1) {
+          console.log("you have four of the same number!");
+          $(".active").each(function() {
+            score += parseInt($(this).attr("data-value"));
+          });
+          console.log($(this));
+          $(this).text(score)
+          $(this).off();
+          $(this).parent().css('background-color','#e0e0e0')
+
+        }
+        $(this).addClass("filled");
+
+
+        //************full house
+      } else if ($(e.target).attr("id") === 'full-house') {
+
+        var score = 0; //set the inital score to 0
+        var multiples = yahtzeeGame.getDiceMultiples() //call the multiples function
+
+        // I want to iterate through my newNumbers object exp: [1,2]
+        var keys = Object.keys(multiples);
+        var appears3times = keys.filter(function(key) {
+          return multiples[key] == 3;
+        });
+
+        var appears2times = keys.filter(function(key) {
+          return multiples[key] == 2;
+        });
+
+        if (appears3times.length === 1 && appears2times.length === 1) {
+          score = 25;
+          $(this).text(score)
+          $(this).off();
+          $(this).parent().css('background-color','#e0e0e0')
+
+        }
+
+        $(this).addClass("filled");
+
+        //************yahtzee
+      } else if ($(e.target).attr("id") === 'yahtzee') {
+        var score = 0; //set the inital score to 0
+        var multiples = yahtzeeGame.getDiceMultiples() //call the multiples function
+
+        // I want to iterate through my newNumbers object exp: [1,2]
+        var keys = Object.keys(multiples);
+        var allDiceSame = keys.filter(function(key) {
+          return multiples[key] >= 5;
+        });
+        console.log(atLeast4);
+
+        if (allDiceSame.length === 1) {
+          score = 50;
+          $(this).text(score)
+          $(this).off();
+          $(this).parent().css('background-color','#e0e0e0')
+
+        }
+        $(this).addClass("filled");
+
+      }
+
+      yahtzeeGame.totalBottom();
+      yahtzeeGame.scoreAddition();
+
+      yahtzeeGame.gameFinished();
+  })
+
+};
+
+
+
+
 
 //handle the form that contains the roll button
 yahtzeeGame.diceRollFormHandler = function() {
@@ -322,23 +458,17 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 // **************************
 //     Using Stuff
 
+//the only time you want to see id or class is here!! NOT above....oops sorry
 
 $(function() {
+
   yahtzeeGame.totalTop();
-  yahtzeeGame.eventHandlerTop();
+  yahtzeeGame.totalBottom();
+  yahtzeeGame.eventHandlerClickScore();
   var $dice  = $(".dice")
   var $countNumber = $('#countdown-rolls');
   var $roll = $('#roll-dice-turn');
   yahtzeeGame.init($roll, $countNumber);
 
-  // yahtzeeGame.select = function() {
-  //   var newImage = $('<img>').addClass('dice');
-  //   $(".dice").on("click",function() {
-  //     console.log("You clicked me!");
-  //   });
-  // };
-  // yahtzeeGame.select();
-
-  //the only time you want to see id or class is here!! NOT above
 
 });

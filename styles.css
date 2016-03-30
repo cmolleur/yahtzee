@@ -17,7 +17,6 @@ body {
   min-height:100%;
   position:relative;
   margin: 0;
-  margin-top: 15px;
   height:100%;
 }
 img {
@@ -30,6 +29,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 15px;
 }
 .dice {
   height: 50%;
@@ -74,7 +74,7 @@ nav {
   margin-right: 25px;
   position: relative;
   text-align:center;
-  padding-top: 10%;
+  padding-top: 5%;
 
 }
 #rolling-area {
@@ -145,7 +145,7 @@ h3 {
 .first {
   border-top: 1px solid #e0e0e0;
 }
-.score-amount-top {
+.center, .score-amount-top, .score-amount-bottom, .score-amount-total {
   text-align: center;
 }
 .score-amount-top:hover,
@@ -173,12 +173,58 @@ footer {
   color: #fff;
 }
 h1 {
-  color: white;
+  color: inherit;
 }
 .score-name {
   width: 50%;
 }
-@media (max-width: 650px) {
+label {
+    display: inline-block;
+    width: 5em;
+}
+.small {
+  font-size: 10px;
+}
+#end {
+  text-align: center;
+  width: 100%;
+  visibility: hidden;
+}
+#game-over {
+  background-color: black;
+  opacity: 0.4;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
+  display:block;
+  position: absolute;
+}
+#final-score {
+  background-color: white;
+  display: block;
+  position: absolute;
+  width: 40%;
+  top: 20%;
+  left: 30%;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 16px;
+
+  z-index: 200;
+}
+#intro-text {
+  color: white;
+}
+.winner {
+  color: #00a8ff;
+  font-size: 40px;
+}
+
+@media (max-width: 885px) {
+
+  #intro-text {
+    font-size: 24px;
+  }
   #score-section {
     display: block;
     width: auto;
@@ -204,5 +250,9 @@ h1 {
   }
   #rolling-area {
     margin-bottom: 25px;
+  }
+  .winner {
+    color: #00a8ff;
+    font-size: 30px;
   }
 }
