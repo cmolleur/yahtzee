@@ -5,44 +5,55 @@ var yahtzeeGame = {};
 var diceImages = [ "img/dice-one.png","img/dice-two.png","img/dice-three.png", "img/dice-four.png", "img/dice-five.png", "img/dice-six.png"];
 
 // var activeDice = $(".active");
+var sum = 0;
+
+
 
 yahtzeeGame.checkUpperRules = function( value ) {
 
   var diceWithValue = $('[data-value=' + value + ']');
   var active = $('.active');
-  var activeLength = active.length;
   var checked = false;
 
-  if (diceWithValue.length === activeLength){
-    console.log("you have " + activeLength + " " + value + "'s'" + " checked");
+  if (diceWithValue.length === active.length){
+    console.log("you have " + active.length + " checked");
     checked = true;
   }
   return checked;
+
+
 
 }
 
 
 //***************TOP RULES***************
 
+yahtzeeGame.upperSectionRule = function(diceValue) {
+  sum = $('.active').length * diceValue;
+  if (this.checkUpperRules(diceValue)) {
+  }
 //to "add" them together, mulitple the number of active dice by value
 //something * 1
 
 //Ones is the sum of the dices with number 1
 yahtzeeGame.ones = function() {
-  if (this.checkUpperRules(1)) {
 
+
+  // sum = $('.active').length * 1;
+  // if (this.checkUpperRules(1)) {
+  //   $("#ones").click(function() {
+  //     $(this).html(sum)
+  //   });
+
+    // console.log(sum);
   }
 
 };
 
+
 //Twos is the sum of the dices with number 2
 yahtzeeGame.twos = function() {
-  if (this.checkUpperRules(2)) {
-    $("#twos").click(function() {
-      sum = active.length * 2
-      $(this).html(sum);
-    });
-  };
+
 };
 //Threes is the sum of the dices with number 3
 yahtzeeGame.threes = function() {
@@ -62,8 +73,10 @@ yahtzeeGame.sixes = function() {
 };
 //get totalTop
 yahtzeeGame.scoreUpper = function() {
-
-
+  var sum = 0;
+  $('.score-amount-top').each(function(){
+    sum += parseFloat($(this).text());  //Or this.innerHTML, this.innerText
+});
 };
 
 //topBonus, if topTotal is 63 or more, a bonus of 35 is added to the upper section
@@ -133,7 +146,7 @@ yahtzeeGame.rollsAvailable = function() {
   } else {
     this.$countNumber.text(0);
     // //on first roll of each player, a button will show up that allows you to roll
-    $('#button-roll').css("display","none");
+    $('#button-roll').css("visibility","hidden");
   }
 };
 
@@ -172,7 +185,7 @@ yahtzeeGame.randomImg = function() {
 
     for (var i = 0; i < rollTheDice.length; i++) {
       $(rollTheDice[i]).attr('src', '' + diceImages[rolls[i]-1]);
-      $(rollTheDice[i]).attr('data-value',(rolls[i]+1));
+      $(rollTheDice[i]).attr('data-value',(rolls[i]));
     };
 
 
@@ -207,6 +220,62 @@ yahtzeeGame.selection = function() {//toggle between data-selection true or fals
 
 };
 
+//clearing the rolling-section when a score is placed
+yahtzeeGame.score = function() {
+  // var score = 0;
+  // $(".active").each(function() {
+  //   score += parseInt($(this).attr("data-value"));
+  // });
+  // console.log($(this));
+  // $(this).text(score)
+  // $(this).off();
+  // $(this).parent().css('background-color','#e0e0e0')
+  //
+  // $('')
+  // yahtzeeGame.randomImg();
+};
+
+yahtzeeGame
+
+yahtzeeGame.totalTop = function() {
+
+};
+
+yahtzeeGame.eventHandlerTop = function() {
+
+  $(".score-amount-top").click(function(e) {//keep outside
+//conditional starts here
+  var dieValue = parseInt($(".active").attr("data-value"));
+  var ones = $("#ones");
+
+//uppervalue of that text
+
+  if ((dieValue === 1 && $(e.target).attr("id") === 'ones') || (dieValue === 2 && $(e.target).attr("id") === 'twos') || (dieValue === 3 && $(e.target).attr("id") === 'threes') || (dieValue === 4 && $(e.target).attr("id") === 'fours') || (dieValue === 5 && $(e.target).attr("id") === 'fives') || (dieValue === 6 && $(e.target).attr("id") === 'sixes')) {
+  // if ((condition for ones AND click on ones) OR (condition for twos AND click on twos) OR ... )
+
+
+    console.log("YAAAAS");
+    var score = 0;
+
+    $(".active").each(function() {
+      score += parseInt($(this).attr("data-value"));
+    });
+    console.log($(this));
+    $(this).text(score)
+    $(this).off();
+    $(this).parent().css('background-color','#e0e0e0')
+
+    $('#rolling-area').empty();
+    yahtzeeGame.randomImg();
+    $('#countdown-rolls').text(2);
+    $('#button-roll').css("visibility", "visible");
+
+  }
+
+//
+
+  });
+};
 
 //handle the form that contains the roll button
 yahtzeeGame.diceRollFormHandler = function() {
@@ -247,6 +316,7 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 
 
 $(function() {
+  yahtzeeGame.eventHandlerTop();
   var $dice  = $(".dice")
   var $countNumber = $('#countdown-rolls');
   var $roll = $('#roll-dice-turn');
