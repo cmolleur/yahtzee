@@ -210,6 +210,11 @@ yahtzeeGame.straightChecker = function(dieArray) {
 
 var activeDice = $(".active");
 
+yahtzeeGame.reloadClick = function() {
+   $("#reload").click(function(e) {
+     location.reload();
+});  
+
 //handles ALLLLLL the dice rules...sorry this is rediculously long and messy
 yahtzeeGame.eventHandlerClickScore = function() {
 
@@ -461,7 +466,7 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 //the only time you want to see id or class is here!! NOT above....oops sorry
 
 $(function() {
-
+  yahtzeeGame.reloadClick();
   yahtzeeGame.totalTop();
   yahtzeeGame.totalBottom();
   yahtzeeGame.eventHandlerClickScore();
