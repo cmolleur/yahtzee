@@ -417,7 +417,12 @@ yahtzeeGame.eventHandlerClickScore = function() {
 
 };
 
-
+yahtzeeGame.gameRestart = function() {
+  $("#restart-game").on("submit", function(e) {
+    location.reload(e);
+  });
+  console.log("You restarted the game!");
+};
 
 
 
@@ -461,7 +466,7 @@ yahtzeeGame.init = function($roll, $countNumber) {//initializing method, what ha
 //the only time you want to see id or class is here!! NOT above....oops sorry
 
 $(function() {
-
+  yahtzeeGame.gameRestart();
   yahtzeeGame.totalTop();
   yahtzeeGame.totalBottom();
   yahtzeeGame.eventHandlerClickScore();
