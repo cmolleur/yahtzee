@@ -18,7 +18,7 @@
         <p class="sub-text">
           You scored 200 points or higher!
         </p>
-        <form id="restart" action="index.html" method="post">
+        <form id="restart" onsubmit="setTimeout(function () { window.location.reload(); }, 10)" method="post">
           <input type="submit" id="restart-button" class="button-roll" value="Play Again">
         </form>
       </div>
