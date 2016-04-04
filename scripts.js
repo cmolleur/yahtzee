@@ -211,7 +211,7 @@ yahtzeeGame.straightChecker = function(dieArray) {
 var activeDice = $(".active");
 
 yahtzeeGame.reloadClick = function() {
-   $("#reload").click(function(e) {
+   $("#restart-button").click(function() {
      location.reload();
 });  
 
