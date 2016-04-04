@@ -419,7 +419,7 @@ yahtzeeGame.eventHandlerClickScore = function() {
 
 yahtzeeGame.gameRestart = function() {
   $("#restart-game").on("submit", function(e) {
-    location.reload(e);
+    location.reload(index.html);
     console.log("You restarted the game!");
   });
 };
